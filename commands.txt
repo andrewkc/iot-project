@@ -1,0 +1,26 @@
+cd C:\influxdb3-core-3.7.0-windows_amd64
+
+./influxdb3 serve --node-id host01 --object-store file --data-dir ~/.influxdb3
+
+| Parámetro                 | ¿Qué hace?                                        |
+| ------------------------- | ------------------------------------------------- |
+| `serve`                   | Inicia el motor InfluxDB 3 Core                   |
+| `--node-id host01`        | Nombre único del nodo en la instancia             |
+| `--object-store file`     | Guarda datos localmente en disco                  |
+| `--data-dir ~/.influxdb3` | Ruta donde se guardan todos los archivos internos |
+
+-----------------------------------------
+
+./influxdb3 create token --admin
+
+./influxdb3 show databases --token apiv3_ONA-jy8BVvXllSybvWnA3DjrzQyALRkbZduQbpjt2duw1NLfv-iMkLEUUV-6wagaNe8BW9zDaAOqtjXe80VrCQ
+
+./influxdb3 create database mydb --token apiv3_ONA-jy8BVvXllSybvWnA3DjrzQyALRkbZduQbpjt2duw1NLfv-iMkLEUUV-6wagaNe8BW9zDaAOqtjXe80VrCQ
+
+WRITE DATA EXAMPLE:
+./influxdb3 write --database mydb --token apiv3_ONA-jy8BVvXllSybvWnA3DjrzQyALRkbZduQbpjt2duw1NLfv-iMkLEUUV-6wagaNe8BW9zDaAOqtjXe80VrCQ --precision s 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i 1641024000'
+
+QUERY EXAMPLE
+./influxdb3 query --database mydb "SELECT * FROM home ORDER BY time" --token apiv3_ONA-jy8BVvXllSybvWnA3DjrzQyALRkbZduQbpjt2duw1NLfv-iMkLEUUV-6wagaNe8BW9zDaAOqtjXe80VrCQ
+
+./influxdb3 query --host http://localhost:8181 --database mydb "SELECT * FROM home ORDER BY time" --token apiv3_ONA-jy8BVvXllSybvWnA3DjrzQyALRkbZduQbpjt2duw1NLfv-iMkLEUUV-6wagaNe8BW9zDaAOqtjXe80VrCQ
